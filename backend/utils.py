@@ -10,7 +10,7 @@ from rest_framework.response import Response
 #     serializer = EmployeeSerializer(employee1, many=False)
 #     return Response(serializer.data)
 
-def getEmployeesDetails()
+def getEmployeesDetails(request):
     Employee1 = Employee.objects.all()
     Serializer = EmployeeSerializer(Employee1, many=True)
     return Response(Serializer.data)
