@@ -13,7 +13,7 @@ from rest_framework.response import Response
 def getEmployeesDetails(request):
     Employee1 = Employee.objects.all()
     Serializer = EmployeeSerializer(Employee1, many=True)
-    return Response(Serializer.data)
+    return (Serializer.data)
 
 
 def createEmployee(request):
