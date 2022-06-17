@@ -1,6 +1,8 @@
 from .serializers import EmployeeSerializer
 from .models import Employee
 from rest_framework.response import Response
+import urllib3
+import certifi
 
 # def createEmployee(request):
 #     data = request.data
@@ -45,3 +47,22 @@ def deleteEmployee(request, pk):
     employee1 = Employee.objects.get(id=pk)
     Employee.delete()
     return Response('Note was deleted.')
+
+
+
+
+
+def postToAppian():
+    http = urllib3.PoolManager(ca_certs=certifi.where())
+
+    payload = {'name': 'John Doe'}
+    encoded_data = json.dumps(payload).encode('utf-8')
+
+    resp = http.request(
+        'POST',
+        'https://convedodev.appiancloud.com/suite/webapi/hHAFeg',
+        body=encoded_data,
+        headers={'Appian-API-Key': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4ZmI4ZjU3Zi00NTkzLTRjM2EtODc5Yy00NWVlY2Y1ZDM5MDgifQ.vBsGgPP9cfR0BvRfECUXVv2rctfXrE7zhC-DDkckDqc'})
+
+    data = resp.data.decode('utf-8')
+    return(data)

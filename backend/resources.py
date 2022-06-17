@@ -1,8 +1,8 @@
 from random import expovariate
-# from import_export import resources
-# from .models import Employee
+from import_export import resources
+from .models import Book
 
 
-# class EmployeeResource(resouces.ModelResource):
-#     class Meta:
-#         model = Employee
+class BookReasource(resources.ModelResource):
+    class Meta:
+        model = Book
