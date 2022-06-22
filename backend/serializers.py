@@ -1,7 +1,7 @@
 from msilib.schema import File
 from pyexpat import model
 from rest_framework import serializers
-from .models import Employee, File 
+from . models import Employee, File 
 
 class EmployeeSerializer(serializers.ModelSerializer):
 

@@ -3,6 +3,7 @@ from .models import Employee
 from rest_framework.response import Response
 import urllib3
 import certifi
+from base64 import b64encode
 
 # def createEmployee(request):
 #     data = request.data
@@ -56,8 +57,8 @@ def postToAppian():
     http = urllib3.PoolManager(ca_certs=certifi.where())
 
     payload = {'name': 'John Doe'}
-    encoded_data = json.dumps(payload).encode('utf-8')
-
+    # encoded_data = json.dumps(payload).encode('utf-8')
+    encoded_data = b64encode(open('test_book.xlsx', 'rb').read()),
     resp = http.request(
         'POST',
         'https://convedodev.appiancloud.com/suite/webapi/hHAFeg',

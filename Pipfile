@@ -9,6 +9,7 @@ djangorestframework = "*"
 django-import-export = "*"
 urllib3 = "*"
 certifi = "*"
+pandas = "*"
 
 [dev-packages]
 

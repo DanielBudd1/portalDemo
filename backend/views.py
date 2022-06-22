@@ -13,6 +13,7 @@ from .serializers import EmployeeSerializer, FileSerializer
 from .models import Employee 
 from .utils import createEmployee, getEmployeeDetails, getEmployeesDetails, updateEmployee, deleteEmployee
 from tablib import Dataset
+import os
 
 # Create your views here.
 
@@ -26,6 +27,13 @@ class FileView(APIView):
       return Response(file_serializer.data, status=status.HTTP_201_CREATED)
     else:
       return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+ 
+@api_view(['GET'])
+def successfulUpload(request):
+    if request.method == 'GET':
+        os.remove(r'CSVs/test_book.xlsx')
+        return Response('xlsx file was deleted.')
 
 
 @api_view(['GET','POST'])
