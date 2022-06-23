@@ -11,11 +11,10 @@ from rest_framework import status
 from yaml import serialize
 from .serializers import EmployeeSerializer, FileSerializer
 from .models import Employee 
-from .utils import compareStructures, createEmployee, getEmployeeDetails, getEmployeesDetails, postToAppian, updateEmployee, deleteEmployee
+from .utils import createEmployee, getEmployeeDetails, getEmployeesDetails, updateEmployee, deleteEmployee, compareStructures, postToAppian
 from tablib import Dataset
 import os
 import pandas as pd
-
 
 class FileView(APIView):
   parser_classes = (MultiPartParser, FormParser)
@@ -35,24 +34,15 @@ class FileView(APIView):
             os.remove(file_location)
             return Response("Null Values Present")
         else:
-            appian_pm_results = postToAppian(uploaded_data_frame)
-            if appian_pm_results == "failed":
-                os.remove(file_location)
-                return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            else:
-                return Response(file_serializer.data, status=status.HTTP_201_CREATED)
+            return Response(file_serializer.data, status=status.HTTP_201_CREATED)
     else:
         return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# api recievs exel file, compares it to control file, then posts to appian
- 
-
-@api_view(['DELETE'])
+@api_view(['GET'])
 def successfulUpload(request):
-    os.remove("CSVs/test_book.xlsx")
-    return Response('Successfully Deleted')
-    
-# when appian succesffuly processes file, it replies and deletes file
+    if request.method == 'GET':
+        os.remove(r'CSVs/test_book.xlsx')
+        return Response('xlsx file was deleted.')
 
 
 @api_view(['GET','POST'])

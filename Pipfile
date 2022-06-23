@@ -10,6 +10,7 @@ django-import-export = "*"
 urllib3 = "*"
 certifi = "*"
 pandas = "*"
+ipython = "*"
 
 [dev-packages]
 
