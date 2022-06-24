@@ -5,8 +5,9 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from yaml import serialize
 from .serializers import EmployeeSerializer, FileSerializer
@@ -18,7 +19,9 @@ import pandas as pd
 
 
 class FileView(APIView):
-  parser_classes = (MultiPartParser, FormParser)
+  parser_classes = (MultiPartParser, FormParser,) 
+  permission_classes = (IsAuthenticated,)
+  
 
   def post(self, request, *args, **kwargs):
     file_serializer = FileSerializer(data=request.data)
@@ -48,6 +51,7 @@ class FileView(APIView):
  
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated,])
 def successfulUpload(request):
     os.remove("CSVs/test_book.xlsx")
     return Response('Successfully Deleted')

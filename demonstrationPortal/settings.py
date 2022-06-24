@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-3bta8xlmh@yz*nyj#79((6=65!g)rc61w0$=zsb=2jfrj@e-d3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['977f-77-103-38-17.eu.ngrok.io']
 
 
 # Application definition
@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     # added
     'import_export',
     'rest_framework',
-    'backend.apps.BackendConfig'
+    'rest_framework.authtoken',
+    'backend.apps.BackendConfig',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,9 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 MEDIA_URL = '/CSVs/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "CSVs")
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
